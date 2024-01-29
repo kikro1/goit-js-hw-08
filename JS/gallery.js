@@ -64,31 +64,55 @@ const images = [
   },
 ];
 
-const galleryContainer = document.querySelector('.gallery');
+const gallery = document.querySelector(".gallery");
+const galleryArray = [];
 
-function createGalleryItem({ preview, original, description }) {
-  const galleryItem = document.createElement('li');
-  galleryItem.classList.add('gallery-item');
-
-  const link = document.createElement('a');
-  link.classList.add('gallery-link');
-  link.href = original;
-
-  const image = document.createElement('img');
-  image.classList.add('gallery-image');
-  image.src = preview;
-  image.dataset.source = original;
-  image.alt = description;
-
-  link.appendChild(image);
-  galleryItem.appendChild(link);
-
-  return galleryItem;
+function addGallery() {
+  for (const { preview, original, description } of images) {
+    const markup = `<li class="gallery-item">
+  <a class="gallery-link" href="${original}">
+    <img
+      class="gallery-image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+    />
+  </a>
+</li>`;
+    galleryArray.push(markup);
+  }
+  gallery.innerHTML = galleryArray.join("");
 }
 
-function renderGallery() {
-  const galleryItems = images.map(createGalleryItem);
-  galleryContainer.append(...galleryItems);
-}
+addGallery();
 
-renderGallery();
+const clickGalleryHandler = (e) => {
+  e.preventDefault();
+  if (e.target === e.currentTarget) {
+    return;
+  }
+  const img = e.target.dataset.source;
+
+  const instance = basicLightbox.create(
+    `
+    <img src="${img}" width="1112" height="640">
+`,
+    {
+      onShow: (instance) => {
+        document.addEventListener("keydown", modalKeydownHandler);
+      },
+      onClose: (instance) => {
+        document.removeEventListener("keydown", modalKeydownHandler);
+      },
+    }
+  );
+  instance.show();
+
+  function modalKeydownHandler(e) {
+    if (e.code === "Escape") {
+      instance.close();
+    }
+  }
+};
+
+gallery.addEventListener("click", clickGalleryHandler);

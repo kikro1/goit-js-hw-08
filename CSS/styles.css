@@ -1,29 +1,29 @@
-/* Ваші стилі тут */
-
-ul.gallery {
+* {
+  box-sizing: border-box;
+}
+img {
+  display: block;
+}
+ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding-left: 0;
+}
+.gallery {
   display: flex;
   flex-wrap: wrap;
-}
-
-.gallery-item {
-  margin: 8px;
-}
-
-.gallery-link {
-  text-decoration: none;
-  color: inherit;
+  gap: 24px;
+  justify-content: center;
+  max-width: 1128px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .gallery-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  transition: transform 0.3s ease-in-out;
+  width: 360px;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 250ms ease-in-out;
 }
-
 .gallery-image:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
