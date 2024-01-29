@@ -4,12 +4,13 @@ body {
 }
 
 .gallery {
-  list-style: none;
-  padding: 0;
-  display: flex;
+  isplay: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 16px;
+  gap: 24px;
+  justify-content: center;
+  max-width: 1128px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .gallery-item {
@@ -24,10 +25,10 @@ body {
 }
 
 .gallery-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.3s ease-in-out;
+  width: 360px;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 250ms ease-in-out;
 }
 
 .gallery-image:hover {

@@ -115,3 +115,46 @@ function onGalleryItemClick(event) {
 
   // Тут ви можете використовувати посилання для відкриття модального вікна або виконати інші дії
 }
+
+// gallery.js
+
+// ... (попередній код)
+
+// Отримайте посилання на модальний блок та зображення модального вікна
+const modal = document.querySelector('.js-lightbox');
+const modalImage = document.querySelector('.lightbox__image');
+
+// Додайте прослуховувач подій для контейнера галереї
+galleryContainer.addEventListener('click', onGalleryItemClick);
+
+// Додайте прослуховувач подій для закриття модального вікна
+modal.addEventListener('click', onModalCloseClick);
+
+// Функція-обробник події кліку на елементі галереї
+function onGalleryItemClick(event) {
+  event.preventDefault();
+
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  const largeImageURL = event.target.dataset.source;
+
+  // Встановіть новий атрибут src для зображення модального вікна
+  modalImage.src = largeImageURL;
+
+  // Відкрийте модальне вікно
+  modal.classList.add('is-open');
+}
+
+// Функція-обробник події кліку для закриття модального вікна
+function onModalCloseClick(event) {
+  // Перевірте, чи клікнуто на оверлей або кнопку закриття
+  if (event.target === modal || event.target.nodeName === 'BUTTON') {
+    // Закрийте модальне вікно
+    modal.classList.remove('is-open');
+
+    // Очистіть атрибут src для зображення модального вікна
+    modalImage.src = '';
+  }
+}
