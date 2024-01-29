@@ -1,6 +1,3 @@
-// gallery.js
-
-// Масив об’єктів із зображеннями
 const images = [
   {
     preview:
@@ -158,3 +155,128 @@ function onModalCloseClick(event) {
     modalImage.src = '';
   }
 }
+
+// gallery.js
+
+// ... (попередній код)
+
+// Імпорт бібліотеки basicLightbox
+import * as basicLightbox from 'basiclightbox';
+
+// ... (попередній код)
+
+// Функція-обробник події кліку на елементі галереї
+function onGalleryItemClick(event) {
+  event.preventDefault();
+
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  const largeImageURL = event.target.dataset.source;
+
+  // Використовуйте бібліотеку basicLightbox для відкриття модального вікна
+  const instance = basicLightbox.create(`
+    <img src="${largeImageURL}" width="800" height="600">
+  `);
+
+  // Відкрийте модальне вікно
+  instance.show();
+}
+
+// ... (попередній код)
+
+
+// gallery.js
+
+// ... (попередній код)
+
+// Функція-обробник події кліку на елементі галереї
+function onGalleryItemClick(event) {
+  event.preventDefault();
+
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  const largeImageURL = event.target.dataset.source;
+
+  // Створюємо новий екземпляр basicLightbox
+  const instance = basicLightbox.create(`
+    <img src="${largeImageURL}" width="800" height="600">
+  `);
+
+  // Встановлюємо обробник події перед відкриттям модального вікна
+  instance.on('show', () => {
+    // Отримуємо посилання на зображення внутрішнього модального вікна
+    const modalImage = document.querySelector('.basicLightbox img');
+    // Замінюємо значення атрибута src на потрібне нам зображення
+    modalImage.src = largeImageURL;
+  });
+
+  // Відкриваємо модальне вікно
+  instance.show();
+}
+
+// ... (попередній код)
+
+// gallery.js
+
+// ... (попередній код)
+
+// Функція закриття модального вікна
+function closeModal() {
+  const instance = basicLightbox.instance();
+  if (instance) {
+    instance.close();
+  }
+}
+
+// Функція-обробник події кліку на елементі галереї
+function onGalleryItemClick(event) {
+  event.preventDefault();
+
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  const largeImageURL = event.target.dataset.source;
+
+  // Створюємо новий екземпляр basicLightbox
+  const instance = basicLightbox.create(`
+    <img src="${largeImageURL}" width="800" height="600">
+  `);
+
+  // Встановлюємо обробник події перед відкриттям модального вікна
+  instance.on('show', () => {
+    // Отримуємо посилання на зображення внутрішнього модального вікна
+    const modalImage = document.querySelector('.basicLightbox img');
+    // Замінюємо значення атрибута src на потрібне нам зображення
+    modalImage.src = largeImageURL;
+
+    // Прослуховування натискання клавіші Escape
+    window.addEventListener('keydown', onKeyPress);
+  });
+
+  // Встановлюємо обробник події перед закриттям модального вікна
+  instance.on('close', () => {
+    // Зупиняємо прослуховування натискання клавіші Escape
+    window.removeEventListener('keydown', onKeyPress);
+  });
+
+  // Відкриваємо модальне вікно
+  instance.show();
+}
+
+// Функція-обробник події натискання клавіші
+function onKeyPress(event) {
+  // Код клавіші Escape
+  const ESC_KEY_CODE = 'Escape';
+
+  if (event.code === ESC_KEY_CODE) {
+    closeModal();
+  }
+}
+
+// ... (попередній код)
+
